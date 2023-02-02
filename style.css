@@ -1,0 +1,85 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+header{
+    border: solid;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+}
+#home{
+    border: solid;
+    margin-top: 20vh;
+}
+.grid-containerHome{
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    text-align: center;
+}
+.grid-2-columns{
+    grid-column: 1 / span 2;
+}
+.notVisible{
+    display: none;
+}
+.hidden{
+    visibility: hidden;
+}
+#scope{
+    border: solid;
+    margin-top: 20vh;
+    height: auto;
+}
+.gridContainerGame{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(auto, 1fr);
+}
+
+.flexColumn{
+    display: flex;
+    flex-direction: column;
+}
+.flexRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+img{
+    width: 30px;
+}
+input{
+    width: 30px;
+}
+footer{
+    position: absolute;
+    text-align: center;
+    border: solid;
+    transition: 1s all;
+    transition-timing-function: ease;
+    bottom: -1000px;
+    width: 100%;
+    padding: 0 50px;
+    font-size: 2em;
+}
+footer div{
+    border: solid;
+}
+footer span{
+    cursor: pointer;
+}
+.apearing_from_bottom{
+    bottom: 0;
+}
+.fade-out{
+    transition: 0.8s all;
+    transition-timing-function: ease;
+    color: rgba(0, 0, 0,0.15);
+}

@@ -8,6 +8,51 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header class="header">
+        <p>music</p>
+        <ul>
+            <li>Home</li>
+            <li>Rules</li>
+        </ul>
+    </header>
+    <!-- Home page -->
+    <section id="home" class="grid-containerHome">
+        <h2 class="grid-2-columns">Wellcome to</h2>
+        <h1 class="grid-2-columns">Bulls and Cows</h1>
+        <div>
+            <p>User guess</p>
+            <button id="user-guess">Start</button>
+        </div>
+        <div>
+            <p>Computer guess</p>
+            <button id="computer-guess">Start</button>
+        </div>
+        <p class="grid-2-columns">Rules</p>
+    </section>
+
+    <!-- Game page -->
+    <section id="scope" class="notVisible">
+        <h3>Cows
+            <p>The digits exist but on the wrong place</p>
+        </h3>
+        <h3>Try to guess a number
+            <p id="attempt"></p>
+        </h3>
+        <h3>Bulls
+            <p>The digits exist and on the correct place</p>
+        </h3>
+       
+    </section>
+    <footer>
+        <p>This is you draft. You can cross out digits that are not in number for sure</p>
+        <div>
+            <span>0</span> <span>1</span>
+            <span>2</span> <span>3</span>
+            <span>4</span> <span>5</span>
+            <span>6</span> <span>7</span>
+            <span>8</span> <span>9</span>
+        </div>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
