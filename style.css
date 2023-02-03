@@ -4,7 +4,6 @@
     box-sizing: border-box;
 }
 
-
 header{
     border: solid;
     display: flex;
@@ -58,6 +57,51 @@ img{
 input{
     width: 30px;
 }
+form>p{
+    color: transparent;
+    transition: 2s all;
+    transition-timing-function: ease;
+}
+.error{
+    color: red;
+}
+
+
+.pop-up-start{
+    border: solid;
+    text-align: center;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: transparent;
+    top: 0vh;
+    right: 0vw;
+    transition: 1s all;
+    transition-timing-function: ease-in-out;
+    transform: translateY(-50%) translateX(50%) scale(0%);
+}
+#rules > article{
+    height: 50vh;
+    width: 80vw;
+    background-color: bisque;
+}
+#openRules{
+    cursor: pointer;
+}
+#closeRules{
+    position: relative;
+    text-align: end;
+    cursor: pointer;
+}
+
+.pop-up{
+    transform: translateY(0%) translateX(0%) scale(100%);
+    background-color: rgba(85, 84, 84, 0.766);
+}
+
 footer{
     position: absolute;
     text-align: center;
@@ -67,7 +111,7 @@ footer{
     bottom: -1000px;
     width: 100%;
     padding: 0 50px;
-    font-size: 2em;
+ 
 }
 footer div{
     border: solid;

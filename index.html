@@ -12,13 +12,21 @@
         <p>music</p>
         <ul>
             <li>Home</li>
-            <li>Rules</li>
+            <li id="openRules">Rules</li>
         </ul>
     </header>
     <!-- Home page -->
     <section id="home" class="grid-containerHome">
         <h2 class="grid-2-columns">Wellcome to</h2>
         <h1 class="grid-2-columns">Bulls and Cows</h1>
+        <div id="level-container">
+            <input type="radio" id="easy" name="level" value="easy">
+            <label for="easy">Easy</label><br>
+            <input type="radio" id="medium" name="level" value="medium" checked>
+            <label for="medium">Medium</label><br>
+            <input type="radio" id="hard" name="level" value="hard">
+            <label for="hard">Hard</label><br>
+        </div>
         <div>
             <p>User guess</p>
             <button id="user-guess">Start</button>
@@ -27,7 +35,6 @@
             <p>Computer guess</p>
             <button id="computer-guess">Start</button>
         </div>
-        <p class="grid-2-columns">Rules</p>
     </section>
 
     <!-- Game page -->
@@ -43,6 +50,7 @@
         </h3>
        
     </section>
+    
     <footer>
         <p>This is you draft. You can cross out digits that are not in number for sure</p>
         <div>
@@ -53,6 +61,23 @@
             <span>8</span> <span>9</span>
         </div>
     </footer>
+    <section id="rules" class="pop-up-start">
+        <article>
+        <div id="closeRules">&#10006</div>
+        <h1>Rules</h1>
+        <p>Discover the hidden code!</p>
+        <p>The number to be guessed is :</p>
+        <p> - a 4 digit number</p>   
+        <p> - don't start from 0</p>
+        <p> - contains all different digits</p>
+        <p>If you guessed a digit BUT it isn't on the correct place- you'll receive a COW. </p>
+        <p>If you guessed a digit AND it is on the correct place - you will receive a BULL</p>
+        <p>4 bulls means you have won the game!</p> 
+        <p>The player gets limit on chances depending on level of difficulty.</p>
+        <p>P.S. If you still have doubts about the rules, check it over <a href="https://en.wikipedia.org/wiki/Bulls_and_Cows">here</a></p>
+    </article>
+    </section>
+
     <script src="script.js"></script>
 </body>
 </html>
