@@ -9,16 +9,19 @@
 </head>
 <body>
     <header class="header">
-        <p>music</p>
+        <p id="music"><audio controls autoplay>
+            <source src="audio.mp3" type="audio/mpeg">
+          </audio></p>
         <ul>
-            <li>Home</li>
+            <li id="openHome">Home</li>
             <li id="openRules">Rules</li>
         </ul>
     </header>
     <!-- Home page -->
     <section id="home" class="grid-containerHome">
-        <h2 class="grid-2-columns">Wellcome to</h2>
-        <h1 class="grid-2-columns">Bulls and Cows</h1>
+        <div id="nameOfGame">
+        <p class="grid-2-columns">Wellcome to</p>
+        <p class="grid-2-columns">Bulls and Cows</p> <br>
         <div id="level-container">
             <input type="radio" id="easy" name="level" value="easy">
             <label for="easy">Easy</label><br>
@@ -28,25 +31,26 @@
             <label for="hard">Hard</label><br>
         </div>
         <div>
-            <p>User guess</p>
             <button id="user-guess">Start</button>
         </div>
-        <div>
+        </div>
+        <!-- This feature is in development phase -->
+        <!-- <div>
             <p>Computer guess</p>
             <button id="computer-guess">Start</button>
-        </div>
+        </div> -->
     </section>
 
     <!-- Game page -->
     <section id="scope" class="notVisible">
         <h3>Cows
-            <p>The digits exist but on the wrong place</p>
+            <p>The digit is on the wrong place</p>
         </h3>
         <h3>Try to guess a number
             <p id="attempt"></p>
         </h3>
         <h3>Bulls
-            <p>The digits exist and on the correct place</p>
+            <p>The digit is on the correct place</p>
         </h3>
        
     </section>

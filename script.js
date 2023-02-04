@@ -45,12 +45,11 @@ function difficultyForGame(evt){
             break;
         default: console.log(`Error`)
     }
-    console.log(numberLength)
 }
 
 // Events for the buttons
 btnUserGuess.addEventListener("click", startGamePage)
-btnCompGuess.addEventListener("click", startGamePage)
+// btnCompGuess.addEventListener("click", startGamePage)
 
 
 // * * * * * * * * * * *  GAMING PART (GUESSING PART) * * * * * * * * * * * * * 
@@ -70,9 +69,8 @@ function startGamePage(evt){
 function checkUniqueNumber(evt){
     // entered unique digits checking 
     evt.preventDefault();
-    //  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    
     let userNumber = [];
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
    for (let i=0; i<=numberLength-1; i++){
     userNumber.push(evt.target[i].value)
    }
@@ -81,7 +79,6 @@ function checkUniqueNumber(evt){
     mainGameFunction(userNumber)
    } else{ 
     document.forms[counter].children[numberLength+1].classList.toggle("error")
-    console.log(document.forms[counter].children[numberLength+1])
     setTimeout(togleError, 2000);
 
 }
@@ -97,11 +94,13 @@ function togleError(){
 function mainGameFunction(userNumber){
     // The main function that cheks user's input and respons how many 
     // bulls or cows user found
-    console.log(`In main function: ${compNumb}, numLength ${numberLength}, 
-    attempt ${attempt} counter ${counter}`)
+    // console.log(`In main function: ${compNumb}, numLength ${numberLength}, 
+    // attempt ${attempt} counter ${counter}`)
+
 
     disableField()
     document.getElementById(`btn${attempt}`).classList.add("notVisible")
+    document.getElementById(`btn${attempt}`).nextSibling.classList.add("notVisible")
 
     // counting the amount of bulls and cows
     let bulls=0, cows=0;
@@ -115,7 +114,6 @@ function mainGameFunction(userNumber){
     console.log(`cows${cows}`)
     console.log(`bulls${bulls}`)
     displayingImages(cows,bulls)
-    // Lets try here!!!!!!!!!
    win_Loose_Check(bulls,attempt)
 }
 
@@ -123,13 +121,14 @@ function win_Loose_Check(bulls, attempt){
     if (bulls === numberLength){ 
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  // Need to create WIN window
-     alert(`win`)
- } else if (attempt === 0){
-     alert(`you loose`);
-     return;
- } else {
-     createTheGameScope();
- } 
+    createWinWindow(1)
+    } else if (attempt === 0){
+        createWinWindow(0)
+        return;
+    } 
+    else {
+        createTheGameScope();
+    } 
 }
 
 function createTheGameScope(){
@@ -167,6 +166,7 @@ function createTheGameScope(){
     const btnText = document.createTextNode("Check")
     // message "error" creating
     const errorMessage = document.createElement("p")
+    errorMessage.classList.add("grid-5-columns")
     const errorMessageText = document.createTextNode("Unique digits only")
     errorMessage.appendChild(errorMessageText)
     // Appending
@@ -207,11 +207,9 @@ function displayingImages(cows,bulls){
         let cowDiv = document.querySelector(`#cow${attempt}`)
         let bullDiv = document.querySelector(`#bull${attempt}`)
         for (let i=cows-1; i>=0; i--){
-            console.log(bullDiv.children[i])
             cowDiv.children[i].classList.toggle("hidden")
         }
         for (let i=bulls-1; i>=0; i--){
-            console.log(bullDiv.children[i])
             bullDiv.children[i].classList.toggle("hidden")
         }
     // } else{
@@ -288,11 +286,39 @@ openRules.addEventListener("click", openCloseRules)
 closeRules.addEventListener("click", openCloseRules)
 
 function openCloseRules(){
-    console.log(`in rules function`)
 document.querySelector("#rules").classList.toggle("pop-up")
 }
 
 // * * * * * * * * * * * POP-UP (Winer) * * * * * * * * * * * 
-function createWinWindow(){
-    
+function createWinWindow(n){
+const newWinerWindow = document.createElement("div")
+newWinerWindow.setAttribute("id","winerLose")
+let newWinerText;
+if (n === 1){
+ newWinerText = document.createTextNode(`Congrats! You WON!`)
+} else {
+     newWinerText = document.createTextNode(`Sorry,you loose`)
+}
+newWinerWindow.appendChild(newWinerText)
+document.body.append(newWinerWindow)
+
+setTimeout(getWinerWinLoseWindow, 1000);
+
+}
+function getWinerWinLoseWindow() {
+document.getElementById("winerLose").classList.toggle("slideDown")
+}
+
+const openHome = document.getElementById("openHome")
+openHome.addEventListener("click", slideHomeSection)
+
+function slideHomeSection(evt){
+    homeSection.classList.toggle("notVisible")
+    homeSection.classList.toggle("grid-containerHome")
+    gameSection.classList.toggle("notVisible")
+    gameSection.classList.toggle("gridContainerGame")
+    document.querySelector("footer").classList.toggle("apearing_from_bottom")
+     attempt = 10;
+    numberLength = 4;
+    counter = 0;
 }

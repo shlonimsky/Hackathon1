@@ -1,29 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Itim', 'Arial Narrow', Arial, sans-serif;
 }
-
+body{
+    background-image: url(img/background.jpg);
+    background-size: auto 100vh;
+    display: flex;
+    justify-content: center;
+}
+/*  * * * * * * * * * * * * * * HEADER * * * * * * * * * * * *  */
 header{
-    border: solid;
     display: flex;
     justify-content: space-between;
     position: fixed;
     top: 0;
     width: 100vw;
+    font-size: 5VH;
 }
+audio{
+    font-size: 20%;
+    width: 40vw;
+    height: 20%;
+}
+li{
+    list-style-type: none;
+    background-image: url(img/ul.png);
+    background-position: center center;
+    background-size: cover;
+    padding: 5PX;
+    text-align: center;
+    color: white;
+}
+li:hover{
+  width: 100px;
+  cursor: pointer;
+  color: rgb(92, 206, 251);
+}
+
+/*  * * * * * * * * * * * * * * HOME * * * * * * * * * * * *  */
+
 #home{
-    border: solid;
-    margin-top: 20vh;
+    position: relative;
+    text-align: center;
+    background-image: url(img/home.png);
+    background-position: center top;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    color: white;
+    width: 70vw;
+    height: 70vh;
+    transition: 1s all;
+    transition-timing-function: ease-in-out;
 }
+#home>div{
+    /* padding: 30% 10% 20% 10% */
+    padding-top: 20vh;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-bottom: 20%;
+    font-size: 5vw;
+    /* height: 59vh; */
+}
+
+.slideDown{
+    transform: translateY(0);
+}
+#user-guess{
+    color: white;
+    cursor: pointer;
+    background-color: transparent;
+    background-image: url(img/ul.png);
+    background-position: center;
+    font-size: 50%;
+    padding: 0 5%;
+    border-radius: 50px;
+}
+#user-guess:hover{
+    color: rgb(86, 173, 245);
+}
+
+#level-container{
+    display: flex;
+    justify-content: center;
+    font-size: 30%;
+}
+#level-container>label{
+    margin-right: 5%;
+}
+
+
 .grid-containerHome{
-    display: grid;
-    grid-template-rows: repeat(3, 1fr);
-    grid-template-columns: repeat(2, 1fr);
     text-align: center;
 }
 .grid-2-columns{
     grid-column: 1 / span 2;
+}
+.grid-5-columns{
+    grid-column: 1 / span 6;
 }
 .notVisible{
     display: none;
@@ -31,15 +107,28 @@ header{
 .hidden{
     visibility: hidden;
 }
+/*  * * * * * * * * * * * * * * GAME PART * * * * * * * * * * * *  */
 #scope{
-    border: solid;
-    margin-top: 20vh;
-    height: auto;
+    padding: 3% 13%;
+    text-align: center;
+    height: 82vh;
+    margin-top: 10vh;
+    background-image: url(img/game.png);
+    background-size: 100% 105%;
+        background-repeat: no-repeat;
+    background-position: center center;
+}
+#scope>h3{
+    font-size: 130%;
+}
+#scope p{
+    font-size: 80%;
+    text-decoration: none;
 }
 .gridContainerGame{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(auto, 1fr);
+    align-content: center;
 }
 
 .flexColumn{
@@ -52,19 +141,41 @@ header{
     justify-content: space-around;
 }
 img{
-    width: 30px;
+    width: 15%;
+}
+form{
+    font-size: 150%;
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    align-content: center;
+}
+form>input{
+ height: auto;
+    font-size: 120%;
+    text-align: center;
+    width: 100%;
+}
+form>button{
+    background-color: rgb(156, 116, 21);
+    border-radius: 20%;
+    border-style: groove;
+    color: white;
+    font-size: 50%;
 }
 input{
     width: 30px;
 }
 form>p{
-    color: transparent;
+    color: transparent ;
     transition: 2s all;
     transition-timing-function: ease;
 }
 .error{
     color: red;
 }
+
+
+/*  * * * * * * * * * * * * * * POP-UP RULES * * * * * * * * * * * *  */
 
 
 .pop-up-start{
@@ -83,18 +194,35 @@ form>p{
     transition-timing-function: ease-in-out;
     transform: translateY(-50%) translateX(50%) scale(0%);
 }
+/* @media only screen and (max-width: 600px) {
+    #rules > article{
+        height: 90vh;
+        width: 100vw;
+        padding: 25% 15% 15% 15%;
+        background-image: url(img/rules.png);
+        background-size: 100% 100%;
+        background-position: center;
+        font-size: 90%;
+    }
+  } */
 #rules > article{
-    height: 50vh;
-    width: 80vw;
-    background-color: bisque;
+    height: 97vh;
+    width: 100vw;
+    padding: 15vh 17% 1% 17%;
+    background-image: url(img/rules.png);
+    background-size: 100% 100%;
+    background-position: center;
+    font-size: 92%;
 }
 #openRules{
     cursor: pointer;
 }
 #closeRules{
+    padding-top: 2vh;
     position: relative;
     text-align: end;
     cursor: pointer;
+    font-size: 120%;
 }
 
 .pop-up{
@@ -102,28 +230,67 @@ form>p{
     background-color: rgba(85, 84, 84, 0.766);
 }
 
+/*  * * * * * * * * * * * * * * FOOTER * * * * * * * * * * * *  */
+
 footer{
+    background-image: url(img/footer.png);
+    background-position: top center;
+    background-size: cover;
     position: absolute;
     text-align: center;
-    border: solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     transition: 1s all;
     transition-timing-function: ease;
-    bottom: -1000px;
+    bottom: 0px;
     width: 100%;
-    padding: 0 50px;
- 
+    padding: 5%;
+    transform: translateY(100%);
 }
 footer div{
+    background-color: antiquewhite;
+    text-align: center;
+    font-size: 160%;
+    width: 50vw;
     border: solid;
+    border: 4px solid rgb(133, 74, 19);
+    border-style:double;
+}
+footer>p{
+    border: 4px solid rgb(133, 74, 19);
+    border-style:double;
+    background-color: antiquewhite;
+    font-size: 120%;
+    padding: 0 5%;
+
 }
 footer span{
     cursor: pointer;
 }
 .apearing_from_bottom{
-    bottom: 0;
+    transform: translateY(0);
 }
 .fade-out{
     transition: 0.8s all;
     transition-timing-function: ease;
     color: rgba(0, 0, 0,0.15);
+}
+
+/*  * * * * * * * * * * * * * * WINNER * * * * * * * * * * * *  */
+#winerLose{
+    position: absolute;
+    width: 70vw;
+    height: 60vh;
+    text-align: center;
+    padding: 45vh 10vw 0 10vw;   
+    font-size: 150%;
+    background-image: url(img/slide1.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: top center;
+    transition: 1s all;
+    transition-timing-function: ease;
+    /* transform: translateY(-100%); */
+    color: wheat;
 }
