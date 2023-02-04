@@ -7,7 +7,8 @@ const level = document.querySelectorAll("#level-container > input")
 let attempt = 10;
 let numberLength = 4;
 let counter = 0;
-let compNumb = generateCompNumber();
+let compNumb;
+
 
 
 //  * * * * * * * * * * * * * * * * HOME PAGE * * * * * * * * * * * * * * * * * 
@@ -28,17 +29,23 @@ function difficultyForGame(evt){
         case 'easy': 
             attempt = 10;
             numberLength=3;
+            // compNumb = generateCompNumber();
+
             break;
         case "medium" : 
             attempt = 10;
             numberLength=4;
+            // compNumb = generateCompNumber();
+
             break;
         case "hard" : 
-            attempt=7;
+            attempt=3;
             numberLength = 4;
+            // compNumb = generateCompNumber();
             break;
         default: console.log(`Error`)
     }
+    console.log(numberLength)
 }
 
 // Events for the buttons
@@ -47,7 +54,6 @@ btnCompGuess.addEventListener("click", startGamePage)
 
 
 // * * * * * * * * * * *  GAMING PART (GUESSING PART) * * * * * * * * * * * * * 
- 
 
 function startGamePage(evt){
 
@@ -57,6 +63,7 @@ function startGamePage(evt){
     gameSection.classList.toggle("gridContainerGame")
     createTheGameScope()
     footerApearing()
+    compNumb = generateCompNumber();
 }
 
 
@@ -66,14 +73,15 @@ function checkUniqueNumber(evt){
     //  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     let userNumber = [];
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-   for (let i=0; i<=userNumber-1; i++){
+   for (let i=0; i<=numberLength-1; i++){
     userNumber.push(evt.target[i].value)
    }
    const allUnique = arr => arr.length === new Set(arr).size
    if (allUnique(userNumber)){
     mainGameFunction(userNumber)
    } else{ 
-    document.forms[counter].children[5].classList.toggle("error")
+    document.forms[counter].children[numberLength+1].classList.toggle("error")
+    console.log(document.forms[counter].children[numberLength+1])
     setTimeout(togleError, 2000);
 
 }
@@ -81,7 +89,7 @@ function checkUniqueNumber(evt){
 }
 function togleError(){
     // Alert about the entering unique numbers only
-        document.forms[counter].children[5].classList.toggle("error")
+        document.forms[counter].children[numberLength+1].classList.toggle("error")
 }
 
 
@@ -89,6 +97,8 @@ function togleError(){
 function mainGameFunction(userNumber){
     // The main function that cheks user's input and respons how many 
     // bulls or cows user found
+    console.log(`In main function: ${compNumb}, numLength ${numberLength}, 
+    attempt ${attempt} counter ${counter}`)
 
     disableField()
     document.getElementById(`btn${attempt}`).classList.add("notVisible")
@@ -105,9 +115,21 @@ function mainGameFunction(userNumber){
     console.log(`cows${cows}`)
     console.log(`bulls${bulls}`)
     displayingImages(cows,bulls)
-    bulls === 4? console.log(`win`) : createTheGameScope();
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // Need to create WIN window
+    // Lets try here!!!!!!!!!
+   win_Loose_Check(bulls,attempt)
+}
+
+function win_Loose_Check(bulls, attempt){
+    if (bulls === numberLength){ 
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ // Need to create WIN window
+     alert(`win`)
+ } else if (attempt === 0){
+     alert(`you loose`);
+     return;
+ } else {
+     createTheGameScope();
+ } 
 }
 
 function createTheGameScope(){
@@ -165,7 +187,7 @@ function createTheGameScope(){
     divBull.appendChild(imgBull)
     }
     gameSection.appendChild(divBull)
-}
+  }
 
 
 function disableField(){
@@ -175,12 +197,13 @@ function disableField(){
     for (let i=0; i<=numberLength-1; i++){
         form[i].setAttribute("disabled","")
     }
+    counter++
 }
 
 
 function displayingImages(cows,bulls){
     // function displays images of cows and bulls depending on amount of guesing digits
-    if (attempt > 0){
+    // if (attempt > 0){
         let cowDiv = document.querySelector(`#cow${attempt}`)
         let bullDiv = document.querySelector(`#bull${attempt}`)
         for (let i=cows-1; i>=0; i--){
@@ -191,9 +214,10 @@ function displayingImages(cows,bulls){
             console.log(bullDiv.children[i])
             bullDiv.children[i].classList.toggle("hidden")
         }
-    } else{
-        alert(`you loose`)
-    }
+    // } else{
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Need to create loose window
+        // alert(`you loose`)
+    // }
     attempt--
     console.log(attempt)
 }
@@ -229,12 +253,14 @@ function generateCompNumber() {
         n3 = Math.floor(Math.random() * 10);
     }
     compNumb.push(n3)
-    // Generate random number != n1,n1,n3
-    n4 = Math.floor(Math.random() * 10);
-    while ((n4 == n1) || (n4 == n2) || (n4 == n3)) {
+    // Generate random number != n1,n2,n3
+    if (numberLength === 4){
         n4 = Math.floor(Math.random() * 10);
+        while ((n4 == n1) || (n4 == n2) || (n4 == n3)) {
+            n4 = Math.floor(Math.random() * 10);
+        }
+        compNumb.push(n4)
     }
-    compNumb.push(n4)
     console.log (`Computer's number: ${compNumb}`)
     return compNumb;
 }
@@ -254,7 +280,7 @@ function crosOutDigits(evt){
     evt.target.classList.toggle("fade-out")
 }
 
-// * * * * * * * * * * * POP-UP (rules) * * * * * * * * * 
+// * * * * * * * * * * * POP-UP (rules) * * * * * * * * * * * 
 const openRules = document.querySelector("#openRules")
 const closeRules = document.querySelector("#closeRules")
 
@@ -264,4 +290,9 @@ closeRules.addEventListener("click", openCloseRules)
 function openCloseRules(){
     console.log(`in rules function`)
 document.querySelector("#rules").classList.toggle("pop-up")
+}
+
+// * * * * * * * * * * * POP-UP (Winer) * * * * * * * * * * * 
+function createWinWindow(){
+    
 }
