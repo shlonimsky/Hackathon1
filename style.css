@@ -7,7 +7,8 @@
 }
 body{
     background-image: url(img/background.jpg);
-    background-size: auto 100vh;
+    /* background-size: auto 100vh; */
+    background-size: cover;
     display: flex;
     justify-content: center;
 }
@@ -22,7 +23,7 @@ header{
 }
 audio{
     font-size: 20%;
-    width: 40vw;
+    width: 25vw;
     height: 20%;
 }
 li{
@@ -117,6 +118,7 @@ li:hover{
     background-size: 100% 105%;
         background-repeat: no-repeat;
     background-position: center center;
+    overflow-y:auto;
 }
 #scope>h3{
     font-size: 130%;
