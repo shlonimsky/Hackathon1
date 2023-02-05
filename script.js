@@ -2,6 +2,7 @@
 const btnUserGuess = document.getElementById("user-guess");
 const btnCompGuess = document.getElementById("computer-guess")
 const homeSection = document.getElementById("home")
+const gameSection1 = document.getElementById("scope1")
 const gameSection = document.getElementById("scope")
 const level = document.querySelectorAll("#level-container > input")
 let attempt = 10;
@@ -14,7 +15,7 @@ let compNumb;
 //  * * * * * * * * * * * * * * * * HOME PAGE * * * * * * * * * * * * * * * * * 
 
 function chooseDifficulty() {
-    //  adding "chabge" events to the radio buttons
+    //  adding "change" events to the radio buttons
     for (let i = 0; i <= level.length - 1; i++) {
         level[i].addEventListener("change", difficultyForGame)
     }
@@ -29,19 +30,16 @@ function difficultyForGame(evt) {
         case 'easy':
             attempt = 10;
             numberLength = 3;
-            // compNumb = generateCompNumber();
 
             break;
         case "medium":
             attempt = 10;
             numberLength = 4;
-            // compNumb = generateCompNumber();
 
             break;
         case "hard":
             attempt = 3;
             numberLength = 4;
-            // compNumb = generateCompNumber();
             break;
         default: console.log(`Error`)
     }
@@ -59,7 +57,7 @@ function startGamePage(evt) {
     homeSection.classList.toggle("notVisible")
     homeSection.classList.toggle("grid-containerHome")
     gameSection.classList.toggle("notVisible")
-    gameSection.classList.toggle("gridContainerGame")
+    gameSection.classList.toggle("flexContainerGame")
     createTheGameScope()
     footerApearing()
     compNumb = generateCompNumber();
@@ -144,13 +142,13 @@ function createTheGameScope() {
         imgCow.classList.add("hidden")
         divCow.appendChild(imgCow)
     }
-    gameSection.appendChild(divCow)
+    gameSection1.appendChild(divCow)
 
     // form container
     const newForm = document.createElement("form")
-    // newForm.addEventListener("submit", mainGameFunction)
     newForm.addEventListener("submit", checkUniqueNumber)
     newForm.addEventListener("keydown", onlyNumbers)
+    // newForm.classList.add("flex-form")
     // Creating 4 inputs
     for (let i = 1; i <= numberLength; i++) {
         const newInput = document.createElement("input")
@@ -173,7 +171,7 @@ function createTheGameScope() {
     newSubmit.appendChild(btnText)
     newForm.appendChild(newSubmit)
     newForm.appendChild(errorMessage)
-    gameSection.appendChild(newForm)
+    gameSection1.appendChild(newForm)
 
     // Bulls section
     const divBull = document.createElement("div")
@@ -186,7 +184,7 @@ function createTheGameScope() {
         imgBull.classList.add("hidden")
         divBull.appendChild(imgBull)
     }
-    gameSection.appendChild(divBull)
+    gameSection1.appendChild(divBull)
 }
 
 
@@ -288,19 +286,22 @@ function openCloseRules() {
 
 // * * * * * * * * * * * POP-UP (Winer) * * * * * * * * * * * 
 function createWinWindow(n) {
-    const newWinerWindow = document.createElement("div")
-    newWinerWindow.setAttribute("id", "winerLose")
-    let newWinerText;
-    if (n === 1) {
-        newWinerText = document.createTextNode(`Congrats! You WON!`)
+    if (document.getElementById("winerLose")) {
+        document.getElementById("winerLose").classList.toggle("notVisible")
     } else {
-        newWinerText = document.createTextNode(`Sorry,you loose`)
+        const newWinerWindow = document.createElement("div")
+        newWinerWindow.setAttribute("id", "winerLose")
+        let newWinerText;
+        if (n === 1) {
+            newWinerText = document.createTextNode(`Congrats! You WON!`)
+        } else {
+            newWinerText = document.createTextNode(`Sorry,you loose`)
+        }
+        newWinerWindow.appendChild(newWinerText)
+        document.body.append(newWinerWindow)
     }
-    newWinerWindow.appendChild(newWinerText)
-    document.body.append(newWinerWindow)
-
-    setTimeout(getWinerWinLoseWindow, 1000);
-
+        setTimeout(getWinerWinLoseWindow, 1000);
+    
 }
 function getWinerWinLoseWindow() {
     document.getElementById("winerLose").classList.toggle("slideDown")
@@ -313,7 +314,7 @@ function slideHomeSection(evt) {
     homeSection.classList.toggle("notVisible")
     homeSection.classList.toggle("grid-containerHome")
     gameSection.classList.toggle("notVisible")
-    gameSection.classList.toggle("gridContainerGame")
+    gameSection.classList.toggle("flexContainerGame")
     document.querySelector("footer").classList.toggle("apearing_from_bottom")
 
     if (document.getElementById("winerLose")) {
@@ -324,14 +325,11 @@ function slideHomeSection(evt) {
 
 }
 function removeAlreadyCreated() {
-    var a = document.querySelectorAll("#scope div")
-    let allDiv = document.querySelectorAll("#scope div")
-
-    let n = document.getElementById("scope").childElementCount;
-    console.log(n)
-    while (n > 3) {
-        gameSection.children[n - 1].parentNode.removeChild(gameSection.children[n - 1])
-        n = document.getElementById("scope").childElementCount
+   
+    let n = gameSection1.childElementCount;
+    while (n > 0) {
+        gameSection1.children[n - 1].parentNode.removeChild(gameSection1.children[n - 1])
+        n = gameSection1.childElementCount
     }
 
     attempt = 10;
