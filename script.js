@@ -10,6 +10,8 @@ let numberLength = 4;
 let counter = 0;
 let compNumb;
 
+//  * * * * * * * * * * * * * * * * HOME PAGE * * * * * * * * * * * * * * * * * 
+// setTimeout()
 
 
 //  * * * * * * * * * * * * * * * * HOME PAGE * * * * * * * * * * * * * * * * * 
