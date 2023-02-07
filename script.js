@@ -10,9 +10,6 @@ let numberLength = 4;
 let counter = 0;
 let compNumb;
 
-//  * * * * * * * * * * * * * * * * HOME PAGE * * * * * * * * * * * * * * * * * 
-// setTimeout()
-
 
 //  * * * * * * * * * * * * * * * * HOME PAGE * * * * * * * * * * * * * * * * * 
 
@@ -40,7 +37,7 @@ function difficultyForGame(evt) {
 
             break;
         case "hard":
-            attempt = 3;
+            attempt = 7;
             numberLength = 4;
             break;
         default: console.log(`Error`)
@@ -52,52 +49,61 @@ btnUserGuess.addEventListener("click", startGamePage)
 // btnCompGuess.addEventListener("click", startGamePage)
 
 
-// * * * * * * * * * * *  GAMING PART (GUESSING PART) * * * * * * * * * * * * * 
+// * * * * * * * * * * * * * * * GAMING PART (GUESSING PART) * * * * * * * * * * * * * * * * * 
+
+//  ------ preparation to game and checking the input ------
 
 function startGamePage(evt) {
-
+// Opening the game board(id=scope) and hidding the home board
     homeSection.classList.toggle("notVisible")
     homeSection.classList.toggle("grid-containerHome")
     gameSection.classList.toggle("notVisible")
     gameSection.classList.toggle("flexContainerGame")
+
     createTheGameScope()
     footerApearing()
+
+    // generate random number
     compNumb = generateCompNumber();
 }
 
 
 function checkUniqueNumber(evt) {
     // entered unique digits checking 
+
     evt.preventDefault();
 
     let userNumber = [];
-    for (let i = 0; i <= numberLength - 1; i++) {
+    // pushing the number that user entered to array
+    for (let i = 0; i < numberLength; i++) {
         userNumber.push(evt.target[i].value)
     }
+    // array function that checks if arrau contains only unique numbers(return true if only unoque/ false if not)
     const allUnique = arr => arr.length === new Set(arr).size
+
     if (allUnique(userNumber)) {
         mainGameFunction(userNumber)
     } else {
+// showing the error message
         document.forms[counter].children[numberLength + 1].classList.toggle("error")
         setTimeout(togleError, 2000);
-
     }
-
 }
+
 function togleError() {
     // Alert about the entering unique numbers only
     document.forms[counter].children[numberLength + 1].classList.toggle("error")
 }
 
 
+//  ------ The main game process ------
 
 function mainGameFunction(userNumber) {
-    // The main function that cheks user's input and respons how many 
-    // bulls or cows user found
-    // console.log(`In main function: ${compNumb}, numLength ${numberLength}, 
-    // attempt ${attempt} counter ${counter}`)
-
-
+    // The main function respons how many bulls or cows user have found and calls:
+    // - function that blocks previously fields and button
+    // - function that shows images and 
+    // - function that checks if user get win.
+ 
     disableField()
     document.getElementById(`btn${attempt}`).classList.add("notVisible")
     document.getElementById(`btn${attempt}`).nextSibling.classList.add("notVisible")
@@ -117,10 +123,11 @@ function mainGameFunction(userNumber) {
     win_Loose_Check(bulls, attempt)
 }
 
+
 function win_Loose_Check(bulls, attempt) {
+// checking if the user won/lost or continue playing
+
     if (bulls === numberLength) {
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // Need to create WIN window
         createWinWindow(1)
     } else if (attempt === 0) {
         createWinWindow(0)
@@ -131,8 +138,12 @@ function win_Loose_Check(bulls, attempt) {
     }
 }
 
+//  ------ Creating part ------
+
+
 function createTheGameScope() {
-    // This function creates new input forms and new imagis every attempt
+    // This function creates new input forms and new images every attempt
+
     document.getElementById("attempt").textContent = `Attemts left: ${attempt} `
     // container for images
     const divCow = document.createElement("div")
@@ -189,6 +200,14 @@ function createTheGameScope() {
     gameSection1.appendChild(divBull)
 }
 
+function onlyNumbers(evt) {
+    // function prevents leters or symbols inputting 
+    const code = evt.keyCode;
+    if (!((code >= 47 && code <= 57) || code == 8 || code == 13)) {
+        evt.preventDefault();
+    }
+}
+
 
 function disableField() {
     // Deleting previous button and making previous fields disabbled
@@ -203,7 +222,7 @@ function disableField() {
 
 function displayingImages(cows, bulls) {
     // function displays images of cows and bulls depending on amount of guesing digits
-    // if (attempt > 0){
+
     let cowDiv = document.querySelector(`#cow${attempt}`)
     let bullDiv = document.querySelector(`#bull${attempt}`)
     for (let i = cows - 1; i >= 0; i--) {
@@ -217,19 +236,10 @@ function displayingImages(cows, bulls) {
     console.log(attempt)
 }
 
-function onlyNumbers(evt) {
-    // function prevents leters or symbols inputting 
-    const code = evt.keyCode;
-    if (!((code >= 47 && code <= 57) || code == 8 || code == 13)) {
-        evt.preventDefault();
-    }
-
-}
 
 function generateCompNumber() {
-    // This function generates a number that contains unique digits 
-    // and not starts from 0
-    // Need to change упростить при помощи создания новых функций  
+    // This function generates a number that contains unique digits and do not starts from 0
+
     let compNumb = [];
     let n1, n2, n3, n4;
     // Generate random number != 0
@@ -260,6 +270,8 @@ function generateCompNumber() {
     return compNumb;
 }
 
+// * * * * * * * * * * * * * * * FOOTER * * * * * * * * * * * * * * * 
+
 function footerApearing() {
     // mahes footer apeeared from buttom
     document.querySelector("footer").classList.add("apearing_from_bottom")
@@ -267,7 +279,6 @@ function footerApearing() {
     for (let i = 0; i <= draft.length - 1; i++) {
         draft[i].addEventListener("click", crosOutDigits)
     }
-
 }
 
 function crosOutDigits(evt) {
@@ -275,7 +286,7 @@ function crosOutDigits(evt) {
     evt.target.classList.toggle("fade-out")
 }
 
-// * * * * * * * * * * * POP-UP (rules) * * * * * * * * * * * 
+// * * * * * * * * * * * * * * *  POP-UP (rules) * * * * * * * * * * * * * * * 
 const openRules = document.querySelector("#openRules")
 const closeRules = document.querySelector("#closeRules")
 
@@ -283,36 +294,46 @@ openRules.addEventListener("click", openCloseRules)
 closeRules.addEventListener("click", openCloseRules)
 
 function openCloseRules() {
+    // making rules hidden or not
     document.querySelector("#rules").classList.toggle("pop-up")
 }
 
 // * * * * * * * * * * * POP-UP (Winer) * * * * * * * * * * * 
 function createWinWindow(n) {
+    // creates or shows winner(n=1)/lose(n=0) window
+
     if (document.getElementById("winerLose")) {
         document.getElementById("winerLose").classList.toggle("notVisible")
     } else {
         const newWinerWindow = document.createElement("div")
         newWinerWindow.setAttribute("id", "winerLose")
-        let newWinerText;
-        if (n === 1) {
-            newWinerText = document.createTextNode(`Congrats! You WON!`)
-        } else {
-            newWinerText = document.createTextNode(`Sorry,you loose`)
-        }
-        newWinerWindow.appendChild(newWinerText)
         document.body.append(newWinerWindow)
     }
-        setTimeout(getWinerWinLoseWindow, 1000);
-    
+    textForWinLoseBorad(n);
+    setTimeout(getWinerWinLoseWindow, 1000); 
 }
+
+function textForWinLoseBorad(n){
+    // adding the text to board depending on win/lose user. n=1-win
+    const board = document.getElementById("winerLose");
+    if( n===1 ){
+        board.textContent=`Congrats! You WON!`;
+    } else{
+        board.textContent=`Sorry,you loose`;
+    }
+}
+
 function getWinerWinLoseWindow() {
     document.getElementById("winerLose").classList.toggle("slideDown")
 }
+
 // * * * * * * * * * * * * OPEN HOME * * * * * * * * * * * 
 const openHome = document.getElementById("openHome")
 openHome.addEventListener("click", slideHomeSection)
 
 function slideHomeSection(evt) {
+    // when user click "home", the home window appears, game board and footer become hidden, and field for input removes
+
     homeSection.classList.toggle("notVisible")
     homeSection.classList.toggle("grid-containerHome")
     gameSection.classList.toggle("notVisible")
@@ -321,23 +342,18 @@ function slideHomeSection(evt) {
     if (!document.getElementById("winerLose").classList.contains("notVisible")){
         document.getElementById("winerLose").classList.toggle("notVisible")
     }
-
-
-    // if (document.getElementById("winerLose") {
-    //     document.getElementById("winerLose").classList.toggle("notVisible")
-    // }
-    console.log(attempt, numberLength, counter)
     removeAlreadyCreated()
-
 }
+
+
 function removeAlreadyCreated() {
-   
+//    removing input fields if they were created
     let n = gameSection1.childElementCount;
     while (n > 0) {
         gameSection1.children[n - 1].parentNode.removeChild(gameSection1.children[n - 1])
         n = gameSection1.childElementCount
     }
-
+// refreshing the variables
     attempt = 10;
     numberLength = 4;
     counter = 0;
