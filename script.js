@@ -318,10 +318,14 @@ function slideHomeSection(evt) {
     gameSection.classList.toggle("notVisible")
     gameSection.classList.toggle("flexContainerGame")
     document.querySelector("footer").classList.toggle("apearing_from_bottom")
-
-    if (document.getElementById("winerLose")) {
+    if (!document.getElementById("winerLose").classList.contains("notVisible")){
         document.getElementById("winerLose").classList.toggle("notVisible")
     }
+
+
+    // if (document.getElementById("winerLose") {
+    //     document.getElementById("winerLose").classList.toggle("notVisible")
+    // }
     console.log(attempt, numberLength, counter)
     removeAlreadyCreated()
 
